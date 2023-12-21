@@ -1,0 +1,103 @@
+
+<div class="container my-4">
+  <% @order.order_items.each do |order_item| %>
+  <div class="card mb-3">
+    <div class="card-body">
+      <h3 class="card-title">Product Name: <%= order_item.product.title %></h3>
+      <h3 class="card-title">Quantity: <%= order_item.quantity %></h3>
+      <h5 class="card-subtitle mb-2 text-muted">Product Price: <%= order_item.product.price %></h5>
+      <h2>Total: <%= "#{order_item.quantity} X #{order_item.product.price} =#{order_item.total}" %></h2>
+      <hr />
+    </div>
+  </div>
+  <% end %>
+
+  <div style="text-align:center">
+    <%= form_with(model: @order, url: checkout_create_path(order_id: @order.id), method: :post) do |form| %>
+
+    <%= form.label :address %><br>
+    <%= form.text_area :address %><br>
+
+    <%= form.label :phone %><br>
+    <%= form.number_field :phone %><br>
+
+    <br>
+
+    <%= form.submit 'Place Order', class:"btn btn-outline-info" %>
+    <% end %>
+  </div>
+  <div class="card">
+  <div class="card-body">
+    <h3 class="card-title">Your current card value has a subtotal of: <%= current_order.subtotal %></h3>
+  </div>
+</div>
+</div>
+
+
+
+
+
+<style>
+        /* Add your custom styles here */
+    body {
+      font-family: 'Arial', sans-serif;
+      background-color: #f8f9fa; /* Add your preferred background color */
+    }
+
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .card {
+      border: 1px solid #dee2e6;
+      border-radius: 8px;
+    }
+
+    .card-body {
+      padding: 20px;
+    }
+
+    .card-title {
+      font-size: 1.5rem;
+      margin-bottom: 10px;
+    }
+
+    .card-subtitle {
+      font-size: 1rem;
+      margin-bottom: 5px;
+      color: #6c757d;
+    }
+
+    form {
+      margin-top: 20px;
+    }
+
+    label {
+      font-weight: bold;
+      display: block;
+      margin-bottom: 5px;
+    }
+
+    input[type="text"],
+    input[type="number"],
+    textarea {
+      width: 100%;
+      padding: 8px;
+      margin-bottom: 10px;
+      border: 1px solid #ced4da;
+      border-radius: 4px;
+      box-sizing: border-box;
+    }
+
+    .btn-outline-info {
+      color: #17a2b8;
+      border-color: #17a2b8;
+    }
+
+    .btn-outline-info:hover {
+      background-color: #17a2b8;
+      color: #fff;
+    }
+
+</style>

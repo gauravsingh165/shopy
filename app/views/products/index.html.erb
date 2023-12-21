@@ -1,0 +1,12 @@
+
+<div class="w-full">
+  <div class="min-w-full my-8">
+    <%= turbo_frame_tag "new-product-form", src: new_product_path %>
+    <%= turbo_frame_tag "product" do %>
+      <%= render @products %>
+    <% end %>
+  </div>
+</div>
+    <div id="card">
+    <%= render "cards/create" %>
+  </div>

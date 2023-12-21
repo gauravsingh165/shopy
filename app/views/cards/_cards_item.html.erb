@@ -1,0 +1,28 @@
+<br>
+<div class="container my-5">
+  <h1 style="background-color:blue; text-align:center;">Cart</h1>
+  <% @order_items.each do |order_item| %>
+    <div class="card mb-3">
+      <div class="card-body">
+        <h3 class="card-title">Product Name: <%= order_item.product.title %></h3>
+        <h5 class="card-subtitle mb-2 text-muted">Product Price: <%= order_item.product.price %></h5>
+
+        <%= form_for order_item, remote: true do |f| %>
+          <%= f.hidden_field :product_id, value: order_item.product.id %>
+          <%= f.number_field :quantity, value: order_item.quantity.to_i, class: "form-control mb-2" %>
+          <%= f.submit "Update Cart", class: "btn btn-outline-warning" %>
+        <% end %>
+        <%# <%= button_to "Buy now!", checkout_create_path, params: { id: order_item.product.id }, class: "btn btn-outline-success my-2", data: { turbo: false } %> 
+        <%= button_to "Remove Items", order_item_path(order_item), method: :delete, remote: true, class: "btn btn-outline-danger my-2" %>
+        <h2>Total: <%= order_item.total %></h2>
+        <%= link_to "proceed to payment", order_show_path(order_id: @order_items.first.order_id) , class: "btn btn-outline-info my-2" %>
+
+      </div>
+    </div>
+  <% end %>
+  <div class="card">
+    <div class="card-body">
+      <h3 class="card-title">Your current card value has a subtotal of: <%= current_order.subtotal %></h3>
+    </div>
+  </div>
+</div>
